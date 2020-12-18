@@ -213,7 +213,7 @@ def main():
                     return df
                 
                 st.sidebar.subheader("Choose What Do You Want To Do")
-                classifier = st.sidebar.selectbox(" ", ("Find new topics", "POWER BI Dashboard", "Interact with our chatbot"))
+                classifier = st.sidebar.selectbox(" ", ("Find new topics manually","Find new topics automatically", "POWER BI Dashboard", "Interact with our chatbot"))
                 if classifier == 'POWER BI Dashboard':
                     import streamlit.components.v1 as components
                     from urllib.request import urlopen
@@ -223,7 +223,7 @@ def main():
                         <iframe width="900" height="606" src="https://app.powerbi.com/view?r=eyJrIjoiZTA4NWU4MjYtOTk3Yi00N2ZhLTgwZWQtZWFhMzNkNDk1Zjk3IiwidCI6Ijk5NmQwYTI3LWUwOGQtNDU1Ny05OWJlLTY3ZmQ2Yjk3OTA0NCIsImMiOjEwfQ%3D%3D&pageName=ReportSection06db5928b6af61b2868f" frameborder="0" style="border:0" allowfullscreen></iframe>
                         """, unsafe_allow_html=True)
                 from stop_words import get_stop_words
-                if classifier == 'Find new topics':
+                if classifier == 'Find new topics manually':
             
                     
                     uploaded_file = st.file_uploader('Upload CSV file to begin', type='csv')
@@ -425,7 +425,7 @@ def main():
                     
                     
                     
-                            st.subheader("LDA Results")
+                            st.subheader("Results")
                             # Plot Word Count and Weights of Topic Keywords
                             fig, axes = plt.subplots(2, 2, figsize=(16,10), sharey=True, dpi=160)
                             cols = [color for name, color in mcolors.TABLEAU_COLORS.items()]
@@ -575,7 +575,52 @@ def main():
                     else:
                      st.warning("Not sure! Try to add some more words")
     
-    
+                from stop_words import get_stop_words
+                if classifier == 'Find new topics automatically':
+            
+                    
+                    uploaded_file = st.file_uploader('Upload CSV file to begin', type='csv')
+                
+                    #if upload then show left bar
+                    if uploaded_file is not None:
+                        df = load_data(uploaded_file)
+                
+                
+                
+                        if st.sidebar.checkbox("Show raw data", False):
+                            st.subheader("Uploaded Data Set")
+                            st.write(df)
+                
+                
+            
+                        st.sidebar.subheader("Text column to analyse")
+                        st_ms = st.sidebar.selectbox("Select Text Columns To Analyse", (df.columns.tolist()))
+                        
+
+                        df_list = list(df)
+                        #from stop_words import get_stop_words
+                        malay_stop_words = get_stop_words('indonesian')       
+        
+                        import top2vec
+                        from top2vec import Top2Vec
+                        
+                        #INITIALIZE AN EMPTY DATAFRAME, CONVERT THE TEXT INTO STRING AND APPEND INTO THE NEW COLUMN
+                        d1 = pd.DataFrame()
+                        d1['text'] = ""
+                        d1['text'] = df[st_ms]
+                        d1['text'] = d1['text'].astype(str)
+                        
+                
+                        #INITIALIZE THE TOP2VEC MODEL AND FIT THE TEXT
+                        #model.build_vocab(df_list, update=False)
+                        model = Top2Vec(documents=d1['text'], speed="learn", workers=10)
+                        
+                        topic_sizes, topic_nums = model.get_topic_sizes()
+                        for topic in topic_nums:
+                            st.pyplot(model.generate_topic_wordcloud(topic))
+                            # Display the generated image:
+
+        
 
 
             else:
