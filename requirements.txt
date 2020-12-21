@@ -25,7 +25,4 @@ matplotlib==3.3.1
 protobuf==3.13.0
 top2vec==1.0.10
 torch==1.6.0
-sudo apt-get update
-sudo apt-get install git
-pip install --upgrade
-git+git://github.com/BerniceYeow/macroviewpycaret.git
+malaya==3.8.2

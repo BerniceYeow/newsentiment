@@ -553,9 +553,10 @@ def main():
                     import pickle
                     with open('tnb_topic_classifier_svm', 'rb') as training_model:
                         topic_model = pickle.load(training_model)
-
-                    from src import model          
-                    malay_bert = model.BertModel()
+                    import malaya
+                    model = malaya.sentiment.transformer(model = 'albert', size = 'base')
+                    #from src import model          
+                    #malay_bert = model.BertModel()
                     # eng_flair = model.Flair()
                     # eng_vader = model.Vader()
                     test = pd.DataFrame()
@@ -567,10 +568,12 @@ def main():
                     message = st.text_area("Enter Text","Type Here ..")
                     if st.button("Analyze"):
                      with st.spinner("Analyzing the text …"):
-                         result = malay_bert.predict(message)
+                         result = model.predict_proba([message])
+                         #result = malay_bert.predict(message)
                          message = [message]
                          topic = topic_model.predict(message)
-                         output = "Result is: Positive:" + str(result[0]) + "Neutral:" + str(result[1]) + "Negative:" + str(result[2]) + "topic is: " + str(topic)
+                         #output = "Result is: Positive:" + str(result[0]) + "Neutral:" + str(result[1]) + "Negative:" + str(result[2]) + "topic is: " + str(topic)
+                         output = "result is:" + str(result) + "topic is: " + str(topic)
                          st.write(output)
             
                     else:
