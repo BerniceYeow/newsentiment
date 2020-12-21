@@ -553,6 +553,7 @@ def main():
                     import pickle
                     with open('tnb_topic_classifier_svm', 'rb') as training_model:
                         topic_model = pickle.load(training_model)
+
                     from src import model          
                     malay_bert = model.BertModel()
                     # eng_flair = model.Flair()
