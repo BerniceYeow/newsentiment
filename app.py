@@ -7,34 +7,17 @@ Created on Wed Nov 25 11:47:10 2020
 
 
 import pandas as pd
-import numpy as np
-import re
+
 import nltk
 from nltk.tokenize import WordPunctTokenizer
-from emot.emo_unicode import UNICODE_EMO, EMOTICONS
-from nltk.corpus import stopwords
 
 import malaya
 
 
-from sklearn import metrics
-from sklearn.model_selection import train_test_split
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.svm import LinearSVC
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.linear_model import LogisticRegression
-from sklearn.neighbors import KNeighborsClassifier
-import sys
-import time
 
 
-import json
 
 
-import datetime as dt
-
-#LOAD THE WORDS TO REMOVE FROM MALAYA TATABAHASA DICTIONARY
-from malaya.text import tatabahasa
 
 
     
@@ -47,7 +30,6 @@ token = WordPunctTokenizer()
 #english_stopwords = stopwords.words('english')
 corrector = malaya.spell.probability()
 
-import pandas as pd
 
 
 from nltk.tokenize import WordPunctTokenizer
@@ -55,53 +37,29 @@ from nltk.tokenize import WordPunctTokenizer
 import malaya
 
 
-import json
 
-
-import pandas as pd
-
-
-# !{sys.executable} -m spacy download en
-
-# Gensim
-import gensim, spacy, logging, warnings
-import gensim.corpora as corpora
-from gensim.utils import lemmatize, simple_preprocess
-from gensim.models import CoherenceModel
-import matplotlib.pyplot as plt
 
 # NLTK Stop words
 
 from nltk import word_tokenize
 import streamlit as st
-import pandas as pd
+
 
 from PIL import Image
 
 
-
-import pandas as pd
 
 
 from nltk.tokenize import WordPunctTokenizer
 
 import malaya
 
-import pandas as pd
-
-import json
-
-
-
-import pandas as pd
 
 
 
 
 
 
-english_stopwords = ['ourselves', 'hers', 'between', 'yourself', 'but', 'again', 'there', 'about', 'once', 'during', 'out', 'very', 'having', 'with', 'they', 'own', 'an', 'be', 'some', 'for', 'do', 'its', 'yours', 'such', 'into', 'of', 'most', 'itself', 'other', 'off', 'is', 's', 'am', 'or', 'who', 'as', 'from', 'him', 'each', 'the', 'themselves', 'until', 'below', 'are', 'we', 'these', 'your', 'his', 'through', 'don', 'nor', 'me', 'were', 'her', 'more', 'himself', 'this', 'down', 'should', 'our', 'their', 'while', 'above', 'both', 'up', 'to', 'ours', 'had', 'she', 'all', 'no', 'when', 'at', 'any', 'before', 'them', 'same', 'and', 'been', 'have', 'in', 'will', 'on', 'does', 'yourselves', 'then', 'that', 'because', 'what', 'over', 'why', 'so', 'can', 'did', 'not', 'now', 'under', 'he', 'you', 'herself', 'has', 'just', 'where', 'too', 'only', 'myself', 'which', 'those', 'i', 'after', 'few', 'whom', 't', 'being', 'if', 'theirs', 'my', 'against', 'a', 'by', 'doing', 'it', 'how', 'further', 'was', 'here', 'than']
-english_stopwords.extend(['from', 'subject', 're', 'edu', 'use', 'not', 'would', 'say', 'could', '_', 'be', 'know','go', 'get', 'do', 'done', 'try', 'many', 'some', 'think', 'see', 'rather',  'lot', 'lack', 'make', 'want', 'seem', 'run', 'need', 'even', 'right', 'line', 'even', 'also', 'may', 'take', 'come'])
 
 
 normalize = ['hashtag', 'url', 'email', 'user', 'money', 'time', 'date',
@@ -260,8 +218,7 @@ def main():
                         
 
                         df_list = list(df)
-                        #from stop_words import get_stop_words
-                        malay_stop_words = get_stop_words('indonesian')       
+     
         
                         import top2vec
                         from top2vec import Top2Vec
