@@ -36,24 +36,7 @@ import datetime as dt
 #LOAD THE WORDS TO REMOVE FROM MALAYA TATABAHASA DICTIONARY
 from malaya.text import tatabahasa
 
-words_to_remove = tatabahasa.stopwords
-words_to_remove1 = tatabahasa.gantinama_list
-words_to_remove2 = tatabahasa.laughing
-words_to_remove3 = tatabahasa.tanya_list
-words_to_remove4 = tatabahasa.sendi_list
 
-#LOAD SHORT FORMS
-malayshortform = json.load(open('Short Form words-Malay (latest).json'))
-englishshortform = json.load(open('Shortform - English (New) (1).json'))
-
-
-#LOAD THE WORDS FROM MALAYA AND VADER CORPUS AND SOME SHORT FORMS MALAY WORDS
-corpus1 = pd.read_csv('wordstoremove.csv', encoding = 'ISO-8859-1')
-
-#APPEND THE WORDS FROM MALAYA AND VADER CORPUS AND SOME SHORT FORMS MALAY WORDS INTO ANOTHER LIST
-corpus2 = []
-for i in corpus1.words:
-    corpus2.append(i)
     
 
 #LOAD TOKENISER, STOPWORDS, MALAYA DEEP MODEL FOR LANGUAGE DETECTION, SPELLER CORRECTOR, NORMALIZE FUNCTION AND ANNOTATION
